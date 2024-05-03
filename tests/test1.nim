@@ -8,9 +8,6 @@
 import unittest
 
 import nimsrvstat
-test "can add":
-  check add(5, 5) == 10
-
 
 test "Getting Data":
   var server: Server

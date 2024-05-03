@@ -80,6 +80,7 @@ type
     mods*: Option[ModsData]
     info*: Option[ServerInfo]
 
+#converts a json node into a string sequence
 proc getSeq(node: JsonNode):seq[string] = 
   var toreturn = newSeq[string]()
 
@@ -89,6 +90,8 @@ proc getSeq(node: JsonNode):seq[string] =
   result = toreturn
 
 
+
+# used to get the data from mcsrvstat and convert it into the above types
 proc getData*(self: Server) = 
   var client = newHttpClient()
 
@@ -230,17 +233,13 @@ proc getData*(self: Server) =
       clean: data["info"]["clean"].getSeq(),
       html: data["info"]["html"].getSeq()
     ))
+  else:
+    serverdata.info = none(ServerInfo)
   # echo data
+
 
 proc getNetwork*(self: Server): NetworkData = 
   result = self.data.get().network
 
 proc getDebug*(self: Server): DebugData = 
   result = self.debug
-
-
-
-
-proc add*(x, y: int): int =
-  ## Adds two files together.
-  return x + y
