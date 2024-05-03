@@ -19,3 +19,6 @@ when defined(nimdistros):
     foreignDep "libssl-dev"
   else:
     foreignDep "openssl"
+
+task release, "For building a release version of the project.":
+ exec "nimble -d:ssl -d:release --accept build"

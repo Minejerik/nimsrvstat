@@ -5,11 +5,11 @@ import std/[
 ]
 
 type
-  Platform* {.pure.} = enum
+  Platform* {.pure.} = enum ## Used to select which platform is used by the server
     Java
     Bedrock
   
-  Server* = ref object
+  Server* = ref object ## The main server object, this is what you will use most of the time
     address*: string
     platform*: Platform
     online*: bool
@@ -306,7 +306,9 @@ proc icon*(self: Server): Option[string] =
   result = self.data.icon
 
 proc playerCount*(self: Server): int = 
+  ## Gets the current player count of the server (as of requesting data)
   result = self.data.players.online
 
 proc maxPlayerCount*(self: Server): int = 
+  ## Gets the max player count of the server
   result = self.data.players.max
