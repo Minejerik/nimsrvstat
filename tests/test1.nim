@@ -47,3 +47,15 @@ test "Platform Error Test":
 
   expect(PlatformError):
     discard server.getBedrock()
+
+test "All data test":
+  var server: Server
+
+  server = Server(
+    address: "hypixel.net",
+    platform: Java
+  )
+
+  server.getData
+
+  check true == true

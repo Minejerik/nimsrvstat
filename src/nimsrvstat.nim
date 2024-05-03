@@ -290,7 +290,6 @@ proc getModData*(self: Server): Option[ModsData] =
   ## Gets the mod data from the server
   result = self.data.mods
 
-
 proc getsServerInfoData*(self: Server): Option[ServerInfo] = 
   ## Gets the server info from the server
   result = self.data.info
@@ -305,3 +304,9 @@ proc getDebug*(self: Server): DebugData =
 proc icon*(self: Server): Option[string] = 
   ## Base64 of the server icon (if one exists)
   result = self.data.icon
+
+proc playerCount*(self: Server): int = 
+  result = self.data.players.online
+
+proc maxPlayerCount*(self: Server): int = 
+  result = self.data.players.max
