@@ -2,7 +2,7 @@
 
 version       = "0.1.0"
 author        = "minejerik"
-description   = "A pacakge to interact with mcsrvstat from nim"
+description   = "A nim wrapper around mcsrvstat"
 license       = "MIT"
 srcDir        = "src"
 

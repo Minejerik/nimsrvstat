@@ -34,3 +34,16 @@ test "Ip test":
   server.getData
 
   check server.getNetwork().ip[0..10] == "209.222.115" 
+
+test "Platform Error Test":
+  var server: Server
+
+  server = Server(
+    address: "hypixel.net",
+    platform: Java
+  )
+
+  server.getData
+
+  expect(PlatformError):
+    discard server.getBedrock()

@@ -13,7 +13,7 @@ type
     address*: string
     platform*: Platform
     online*: bool
-    data: Option[ServerData]
+    data: ServerData
     debug: DebugData
 
   DebugData = object
@@ -79,6 +79,9 @@ type
     plugins*: Option[PluginsData]
     mods*: Option[ModsData]
     info*: Option[ServerInfo]
+
+type 
+  PlatformError* = object of KeyError ## Raised when the platform is incorrect for the query
 
 #converts a json node into a string sequence
 proc getSeq(node: JsonNode):seq[string] = 
@@ -198,8 +201,6 @@ proc getData*(self: Server) =
   else:
     players.list = none(seq[Player])
 
-  self.data = some(serverdata)
-
   if data{"plugins"} != nil:
     var plugins = PluginsData()
     var pluginseq = newSeq[Plugin]()
@@ -235,11 +236,72 @@ proc getData*(self: Server) =
     ))
   else:
     serverdata.info = none(ServerInfo)
+
+  self.data = serverdata
   # echo data
 
+# Gets full types from server
 
 proc getNetwork*(self: Server): NetworkData = 
-  result = self.data.get().network
+  ## Gets the network data type of the server
+  result = self.data.network
+
+proc getProtocol*(self: Server): Option[Protocol] = 
+  ## Gets the protocol data from the server
+  result = self.data.protocol
+
+proc getBedrock*(self: Server): Option[BedrockData] = 
+  ## Gets the bedrock data from the server (if it exists)
+  if self.platform == Platform.Java:
+    raise PlatformError.newException("Server is not a bedrock server")
+  result = self.data.bedrock
+
+proc getJava*(self: Server): Option[JavaData] = 
+  ## Gets the bedrock data from the server (if it exists)
+  if self.platform == Platform.Bedrock:
+    raise PlatformError.newException("Server is not a java server")
+  result = self.data.java
+
+proc getPlatform*(self: Server): PlatformData = 
+  ## Gets the platform data from the server
+  result = self.data.platform
+
+proc getServerData*(self: Server): ServerData = 
+  ## Gets all data from the server
+  result = self.data
+
+proc getMapData*(self: Server): Option[MapData] = 
+  ## Gets the mapdata data from the server
+  result = self.data.map
+
+proc getMotdData*(self: Server): MotdData = 
+  ## Gets the motd data from the server
+  result = self.data.motd
+
+proc getPlayerData*(self: Server): PlayersData = 
+  ## Gets the player data from the server
+  result = self.data.players
+
+proc getPluginData*(self: Server): Option[PluginsData] = 
+  ## Gets the plugin data from the server
+  result = self.data.plugins
+
+proc getModData*(self: Server): Option[ModsData] = 
+  ## Gets the mod data from the server
+  result = self.data.mods
+
+
+proc getsServerInfoData*(self: Server): Option[ServerInfo] = 
+  ## Gets the server info from the server
+  result = self.data.info
 
 proc getDebug*(self: Server): DebugData = 
+  ## Gets the debug data from the server
   result = self.debug
+
+
+# Gets only specific values from server
+# More dev friendly 
+proc icon*(self: Server): Option[string] = 
+  ## Base64 of the server icon (if one exists)
+  result = self.data.icon
