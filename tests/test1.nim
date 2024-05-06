@@ -52,11 +52,13 @@ test "Player data test":
   var server: Server
 
   server = Server(
-    address: "hypixel.net",
+    address: "simplyvanilla.co",
     platform: Java
   )
 
   server.getData
+
+  echo server.getPlayerByName("obama")
 
   echo server.getPlayerData
 

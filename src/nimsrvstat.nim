@@ -101,6 +101,7 @@ proc getData*(self: Server) =
   let endpoint = if self.platform == Platform.Java: "3/" else: "bedrock/3/"
 
   let data = parseJson(client.getContent("https://api.mcsrvstat.us/" & endpoint & self.address))
+  # echo data
 
   self.online = data["online"].getBool()
 
@@ -200,6 +201,8 @@ proc getData*(self: Server) =
     players.list = some(toadd)
   else:
     players.list = none(seq[Player])
+
+  serverdata.players = players
 
   if data{"plugins"} != nil:
     var plugins = PluginsData()
@@ -312,3 +315,10 @@ proc playerCount*(self: Server): int =
 proc maxPlayerCount*(self: Server): int = 
   ## Gets the max player count of the server
   result = self.data.players.max
+
+proc getPlayerByName*(self: Server, name: string): Option[Player] = 
+  if not self.data.players.list.isSome():
+    return none(Player)
+  for p in self.data.players.list.get():
+    echo p
+  return none(Player)
