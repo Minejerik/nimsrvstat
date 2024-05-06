@@ -324,7 +324,6 @@ proc getPlayerByName*(self: Server, name: string): Option[Player] =
       return some(p)
   return none(Player)
 
-
 proc getPlayerByUUID*(self: Server, uuid: string): Option[Player] = 
   if not self.data.players.list.isSome():
     return none(Player)
