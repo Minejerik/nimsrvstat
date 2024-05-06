@@ -127,9 +127,8 @@ proc getData*(self: Server) =
 
   var serverdata = ServerData()
 
-
   if data{"icon"} != nil:
-    serverdata.icon = some(data["icon"].getStr())
+    serverdata.icon = some(client.getContent("https://api.mcsrvstat.us/icon/" & self.address))
   else:
     serverdata.icon = none(string)
 
