@@ -320,5 +320,15 @@ proc getPlayerByName*(self: Server, name: string): Option[Player] =
   if not self.data.players.list.isSome():
     return none(Player)
   for p in self.data.players.list.get():
-    echo p
+    if p.name == name:
+      return some(p)
+  return none(Player)
+
+
+proc getPlayerByUUID*(self: Server, uuid: string): Option[Player] = 
+  if not self.data.players.list.isSome():
+    return none(Player)
+  for p in self.data.players.list.get():
+    if p.uuid == uuid:
+      return some(p)
   return none(Player)

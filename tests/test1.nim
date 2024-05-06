@@ -7,6 +7,8 @@
 
 import unittest
 
+import std/options
+
 import nimsrvstat
 
 test "Getting Data":
@@ -58,7 +60,7 @@ test "Player data test":
 
   server.getData
 
-  echo server.getPlayerByName("obama")
+  echo server.getPlayerByName("Paladin2").get()
 
   echo server.getPlayerData
 
