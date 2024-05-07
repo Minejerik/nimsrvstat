@@ -47,8 +47,7 @@ test "Platform Error Test":
 
   server.getData
 
-  expect(PlatformError):
-    discard server.getBedrock()
+  check server.getBedrock().isSome == false
 
 test "Player data test":
   var server: Server
