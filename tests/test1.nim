@@ -60,7 +60,9 @@ test "Player data test":
 
   server.getData
 
-  echo server.getPlayerByName("Paladin2").get()
+  echo server.getPlayerByName("Pantanis").get()
+
+  echo server.getPlayerByUUID("d6dce49d-80ce-4876-99d4-c184c2acff23").get()
 
   echo server.getPlayerData
 
