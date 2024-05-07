@@ -5,7 +5,7 @@
 Here is some example code of it getting, and saving, the icon of a server:
 
 ```nim
-import src/nimsrvstat
+import nimsrvstat
 import std/options
 
 # Create server instance
