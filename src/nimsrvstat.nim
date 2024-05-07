@@ -254,14 +254,10 @@ proc getProtocol*(self: Server): Option[Protocol] =
 
 proc getBedrock*(self: Server): Option[BedrockData] = 
   ## Gets the bedrock data from the server (if it exists)
-  if self.platform == Platform.Java:
-    raise PlatformError.newException("Server is not a bedrock server")
   result = self.data.bedrock
 
 proc getJava*(self: Server): Option[JavaData] = 
   ## Gets the bedrock data from the server (if it exists)
-  if self.platform == Platform.Bedrock:
-    raise PlatformError.newException("Server is not a java server")
   result = self.data.java
 
 proc getPlatform*(self: Server): PlatformData = 
